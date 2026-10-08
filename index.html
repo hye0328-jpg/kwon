@@ -1,0 +1,2195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>우리 가족 치매돌봄 기록장</title>
+  <!-- Google Fonts & System Font Fallback -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* DESIGN.md 기반 Duolingo 스타일 토큰 및 커스텀 스타일 */
+    :root {
+      /* Colors */
+      --color-eager-green: #58cc02;
+      --color-green-dark: #46a302;
+      --color-storybook-green: #d7ffb8;
+      --color-spark-blue: #1cb0f6;
+      --color-blue-dark: #1899d6;
+      --color-fresh-leaf: #a5ed6e;
+      --color-night-ink: #000437;
+      --color-paper-white: #ffffff;
+      --color-charcoal: #4b4b4b;
+      --color-pencil-gray: #777777;
+      --color-faded-gray: #e5e5e5;
+      --color-border-gray: #dcdcdc;
+      --color-bg-canvas: #f7f9fa;
+      --color-danger: #ff4b4b;
+      --color-danger-dark: #d63030;
+      --color-warning: #ff9600;
+      --color-warning-dark: #d97f00;
+
+      /* Typography */
+      --font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-display: 'Nunito', 'Noto Sans KR', sans-serif;
+
+      /* Radii */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+
+      /* Layout */
+      --max-width: 680px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--color-bg-canvas);
+      color: var(--color-charcoal);
+      line-height: 1.5;
+      font-size: 16px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      padding-bottom: 84px; /* for fixed bottom nav */
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: var(--max-width);
+      background: var(--color-paper-white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 24px rgba(0, 0, 0, 0.04);
+      position: relative;
+    }
+
+    /* Top Header */
+    header {
+      background: var(--color-paper-white);
+      border-bottom: 2px solid var(--color-faded-gray);
+      padding: 12px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-badge {
+      width: 40px;
+      height: 40px;
+      background: var(--color-eager-green);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 22px;
+      box-shadow: 0 4px 0 var(--color-green-dark);
+      flex-shrink: 0;
+    }
+
+    .brand-text h1 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--color-charcoal);
+      line-height: 1.2;
+    }
+
+    .brand-text .group-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-eager-green);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* User Switcher Pill */
+    .user-pill {
+      background: var(--color-storybook-green);
+      border: 2px solid var(--color-fresh-leaf);
+      border-radius: var(--radius-full);
+      padding: 4px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #2e6800;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s;
+    }
+
+    .user-pill:hover {
+      background: #c3fba0;
+    }
+
+    /* Sticker Button System */
+    .btn {
+      font-family: var(--font-family);
+      font-weight: 700;
+      font-size: 15px;
+      border-radius: var(--radius-md);
+      padding: 10px 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.08s ease, filter 0.15s ease;
+      user-select: none;
+      border: none;
+    }
+
+    .btn:active {
+      transform: translateY(3px) !important;
+    }
+
+    .btn-primary {
+      background: var(--color-eager-green);
+      color: white;
+      box-shadow: 0 4px 0 var(--color-green-dark);
+    }
+    .btn-primary:active {
+      box-shadow: 0 1px 0 var(--color-green-dark);
+    }
+
+    .btn-blue {
+      background: var(--color-spark-blue);
+      color: white;
+      box-shadow: 0 4px 0 var(--color-blue-dark);
+    }
+    .btn-blue:active {
+      box-shadow: 0 1px 0 var(--color-blue-dark);
+    }
+
+    .btn-outlined {
+      background: white;
+      color: var(--color-charcoal);
+      border: 2px solid var(--color-border-gray);
+      box-shadow: 0 4px 0 var(--color-border-gray);
+    }
+    .btn-outlined:active {
+      box-shadow: 0 1px 0 var(--color-border-gray);
+    }
+
+    .btn-danger {
+      background: var(--color-danger);
+      color: white;
+      box-shadow: 0 4px 0 var(--color-danger-dark);
+    }
+    .btn-danger:active {
+      box-shadow: 0 1px 0 var(--color-danger-dark);
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 13px;
+      border-radius: var(--radius-sm);
+    }
+
+    .btn-full {
+      width: 100%;
+    }
+
+    /* Content Area */
+    main {
+      flex: 1;
+      padding: 16px;
+    }
+
+    /* Top Safety Banner */
+    .safety-banner {
+      background: #fff8e6;
+      border: 2px solid #ffe199;
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
+    }
+    .safety-banner-text {
+      color: #7a5200;
+      line-height: 1.35;
+    }
+    .safety-banner .emergency-call-btn {
+      background: var(--color-danger);
+      color: white;
+      padding: 5px 10px;
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      font-size: 12px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 2px 0 var(--color-danger-dark);
+      flex-shrink: 0;
+    }
+
+    /* Home Dashboard Sections */
+    .elder-card {
+      background: linear-gradient(135deg, #f0fdf4 0%, #e6f9ea 100%);
+      border: 2px solid var(--color-fresh-leaf);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 4px 0 #bfe89d;
+    }
+
+    .elder-avatar {
+      width: 60px;
+      height: 60px;
+      background: white;
+      border: 3px solid var(--color-eager-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+
+    .elder-info h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--color-night-ink);
+    }
+    .elder-info p {
+      font-size: 13px;
+      color: var(--color-pencil-gray);
+      margin-top: 2px;
+    }
+
+    /* Quick Action Grid */
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--color-charcoal);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-title .more-link {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-spark-blue);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .action-card {
+      background: white;
+      border: 2px solid var(--color-border-gray);
+      border-radius: var(--radius-md);
+      padding: 12px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 3px 0 var(--color-border-gray);
+      transition: all 0.1s ease;
+      text-align: center;
+    }
+
+    .action-card:hover {
+      border-color: var(--color-eager-green);
+      background: #fbfdf9;
+    }
+
+    .action-card:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--color-border-gray);
+    }
+
+    .action-card .icon {
+      font-size: 24px;
+    }
+
+    .action-card .label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-charcoal);
+    }
+
+    /* Summary Stats Ribbon */
+    .stats-ribbon {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .stat-box {
+      flex: 1;
+      background: white;
+      border: 2px solid var(--color-faded-gray);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      text-align: center;
+    }
+
+    .stat-box .count {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--color-eager-green);
+    }
+    .stat-box.blue .count {
+      color: var(--color-spark-blue);
+    }
+    .stat-box .desc {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-pencil-gray);
+    }
+
+    /* Cards and Lists */
+    .card {
+      background: white;
+      border: 2px solid var(--color-border-gray);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 3px 0 var(--color-border-gray);
+      position: relative;
+    }
+
+    .card:hover {
+      border-color: #c7c7c7;
+    }
+
+    /* Care Record Item */
+    .record-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .type-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .type-meal { background: #fffae6; color: #b78103; border: 1px solid #ffe58f; }
+    .type-medicine { background: #e6f7ff; color: #096dd9; border: 1px solid #91d5ff; }
+    .type-condition { background: #f6ffed; color: #389e0d; border: 1px solid #b7eb8f; }
+    .type-sleep { background: #f9f0ff; color: #722ed1; border: 1px solid #d3adf7; }
+    .type-toilet { background: #fff2e8; color: #d4380d; border: 1px solid #ffbb96; }
+    .type-etc { background: #f5f5f5; color: #595959; border: 1px solid #d9d9d9; }
+
+    .record-time {
+      font-size: 12px;
+      color: var(--color-pencil-gray);
+      font-weight: 600;
+    }
+
+    .record-content {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-charcoal);
+      margin-bottom: 6px;
+      word-break: break-all;
+    }
+
+    .record-note {
+      font-size: 13px;
+      color: #666;
+      background: #fafafa;
+      border-left: 3px solid var(--color-spark-blue);
+      padding: 4px 8px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 8px;
+    }
+
+    .record-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--color-pencil-gray);
+      padding-top: 6px;
+      border-top: 1px dashed var(--color-faded-gray);
+    }
+
+    .author-tag {
+      font-weight: 700;
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-action-text {
+      background: none;
+      border: none;
+      color: var(--color-pencil-gray);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+    .btn-action-text:hover {
+      color: var(--color-danger);
+    }
+
+    /* Schedule Item */
+    .schedule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .schedule-check {
+      margin-top: 2px;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--color-border-gray);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+
+    .schedule-check.completed {
+      background: var(--color-eager-green);
+      border-color: var(--color-green-dark);
+      color: white;
+    }
+
+    .schedule-content {
+      flex: 1;
+    }
+
+    .schedule-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-charcoal);
+    }
+
+    .schedule-title.completed {
+      text-decoration: line-through;
+      color: var(--color-pencil-gray);
+    }
+
+    .schedule-meta {
+      font-size: 13px;
+      color: var(--color-pencil-gray);
+      margin-top: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .assignee-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #f0f7ff;
+      color: #0066cc;
+      border: 1px solid #bae0ff;
+      border-radius: var(--radius-sm);
+      padding: 1px 6px;
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    /* Notice Card */
+    .notice-card {
+      border-left: 4px solid var(--color-warning);
+    }
+    .notice-card.pinned {
+      border-left: 4px solid var(--color-eager-green);
+      background: #fcfffa;
+    }
+    .notice-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--color-night-ink);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Empty State */
+    .empty-state {
+      padding: 36px 16px;
+      text-align: center;
+      color: var(--color-pencil-gray);
+    }
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 8px;
+      opacity: 0.8;
+    }
+    .empty-state-text {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    /* Bottom Navigation Bar (Mobile First) */
+    nav.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: var(--max-width);
+      height: 72px;
+      background: var(--color-paper-white);
+      border-top: 2px solid var(--color-faded-gray);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 90;
+      padding: 0 8px;
+    }
+
+    .nav-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      color: var(--color-pencil-gray);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      height: 100%;
+      transition: color 0.15s;
+    }
+
+    .nav-btn.active {
+      color: var(--color-eager-green);
+    }
+
+    .nav-btn .nav-icon {
+      font-size: 22px;
+    }
+
+    /* Modals */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-sheet {
+      width: 100%;
+      max-width: var(--max-width);
+      background: white;
+      border-radius: 20px 20px 0 0;
+      padding: 20px 20px 30px;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.25s ease-out;
+    }
+
+    .modal-overlay.active .modal-sheet {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--color-faded-gray);
+    }
+
+    .modal-header h3 {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--color-pencil-gray);
+      padding: 4px;
+    }
+
+    /* Form Controls */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-charcoal);
+      margin-bottom: 6px;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid var(--color-border-gray);
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--color-charcoal);
+      background: white;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--color-eager-green);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .type-selector-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .type-option-btn {
+      padding: 8px;
+      border: 2px solid var(--color-border-gray);
+      border-radius: var(--radius-md);
+      background: white;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .type-option-btn.selected {
+      border-color: var(--color-eager-green);
+      background: var(--color-storybook-green);
+      color: #276300;
+    }
+
+    .quick-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      background: #f0f2f5;
+      border: 1px solid #dcdfe4;
+      border-radius: var(--radius-full);
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #555;
+      cursor: pointer;
+    }
+
+    .chip:hover {
+      background: #e4e7ec;
+      border-color: #cbd0d8;
+    }
+
+    /* Filter Pills */
+    .filter-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      scrollbar-width: none;
+    }
+    .filter-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-pill {
+      white-space: nowrap;
+      padding: 6px 14px;
+      background: white;
+      border: 2px solid var(--color-border-gray);
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-pencil-gray);
+      cursor: pointer;
+    }
+
+    .filter-pill.active {
+      background: var(--color-eager-green);
+      border-color: var(--color-eager-green);
+      color: white;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: #333;
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--radius-full);
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 200;
+      transition: transform 0.25s ease-out;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Tabs content view toggle */
+    .tab-view {
+      display: none;
+    }
+    .tab-view.active {
+      display: block;
+    }
+
+    /* Utility */
+    .text-center { text-align: center; }
+    .mt-2 { margin-top: 8px; }
+    .mt-4 { margin-top: 16px; }
+    .mb-3 { margin-bottom: 12px; }
+    .flex-between { display: flex; justify-content: space-between; align-items: center; }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- Top App Header -->
+  <header>
+    <div class="brand-section">
+      <div class="logo-badge">🌱</div>
+      <div class="brand-text">
+        <h1 id="headerGroupName">김씨 가족 돌봄팀</h1>
+        <div class="group-tag">
+          <span>어르신:</span>
+          <strong id="headerElderName">김어머니</strong>
+        </div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <!-- User switcher -->
+      <div class="user-pill" id="userSwitcherBtn" title="클릭하여 작성자(가족) 변경">
+        <span>👤</span>
+        <span id="currentUserName">민지</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Body Content with Views -->
+  <main>
+    <!-- Safety Warning Banner -->
+    <div class="safety-banner">
+      <div class="safety-banner-text">
+        <strong>⚠️ 안전 안내:</strong> 본 기록장은 가족 기록 공유용이며 의학적 판단을 대체하지 않습니다.
+      </div>
+      <a href="tel:119" class="emergency-call-btn" title="응급상황 시 119 즉시 전화">
+        🚨 119
+      </a>
+    </div>
+
+    <!-- VIEW 1: HOME DASHBOARD -->
+    <div id="view-home" class="tab-view active">
+      <!-- Elder Card -->
+      <div class="elder-card">
+        <div class="elder-avatar">👵</div>
+        <div class="elder-info">
+          <h2 id="dashElderName">김어머니 돌봄 현황</h2>
+          <p id="todayDateStr">2026년 9월 29일 (화)</p>
+          <p style="font-size: 12px; color: #2e6800; margin-top: 4px; font-weight: 700;">
+            🌿 가족들이 함께 정성으로 돌보고 있습니다
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="section-title">
+        <span>⚡ 빠른 돌봄 기록</span>
+      </div>
+      <div class="quick-actions">
+        <div class="action-card" onclick="openRecordModalWithPreset('식사', '아침 식사와 물 한 컵 드심')">
+          <span class="icon">🍚</span>
+          <span class="label">식사 기록</span>
+        </div>
+        <div class="action-card" onclick="openRecordModalWithPreset('복약 확인', '아침 약 복용 여부 확인 완료')">
+          <span class="icon">💊</span>
+          <span class="label">복약 확인</span>
+        </div>
+        <div class="action-card" onclick="openRecordModalWithPreset('기분·컨디션', '컨디션 양호하고 기분 좋으심')">
+          <span class="icon">😊</span>
+          <span class="label">컨디션</span>
+        </div>
+        <div class="action-card" onclick="openRecordModalWithPreset('수면', '편안하게 숙면 취하심')">
+          <span class="icon">😴</span>
+          <span class="label">수면 기록</span>
+        </div>
+        <div class="action-card" onclick="openRecordModalWithPreset('배변', '정상 배변 확인')">
+          <span class="icon">🚽</span>
+          <span class="label">배변 확인</span>
+        </div>
+        <div class="action-card" onclick="openRecordModal()">
+          <span class="icon">✏️</span>
+          <span class="label">직접 입력</span>
+        </div>
+      </div>
+
+      <!-- Today Stats Ribbon -->
+      <div class="stats-ribbon">
+        <div class="stat-box">
+          <div class="count" id="statTodayRecords">3</div>
+          <div class="desc">오늘 돌봄 기록</div>
+        </div>
+        <div class="stat-box blue">
+          <div class="count" id="statUpcomingSchedules">2</div>
+          <div class="desc">예정된 일정</div>
+        </div>
+      </div>
+
+      <!-- Recent Records (3 items) -->
+      <div class="section-title">
+        <span>📋 최근 돌봄 기록</span>
+        <a class="more-link" onclick="switchTab('records')">전체보기 &gt;</a>
+      </div>
+      <div id="homeRecentRecordsList">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Upcoming Schedules (3 items) -->
+      <div class="section-title mt-4">
+        <span>📅 예정된 가족 일정</span>
+        <a class="more-link" onclick="switchTab('schedules')">일정 전체보기 &gt;</a>
+      </div>
+      <div id="homeRecentSchedulesList">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Recent Notices (2 items) -->
+      <div class="section-title mt-4">
+        <span>📢 가족 공지 &amp; 메모</span>
+        <a class="more-link" onclick="switchTab('notices')">공지 전체보기 &gt;</a>
+      </div>
+      <div id="homeRecentNoticesList">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- VIEW 2: RECORDS LIST -->
+    <div id="view-records" class="tab-view">
+      <div class="flex-between mb-3">
+        <h2 style="font-size: 20px; font-weight: 800;">📋 돌봄 기록 일지</h2>
+        <button class="btn btn-primary btn-sm" onclick="openRecordModal()">+ 새 기록 작성</button>
+      </div>
+
+      <!-- Filter Scroll -->
+      <div class="filter-scroll">
+        <button class="filter-pill active" onclick="filterRecords('ALL', this)">전체</button>
+        <button class="filter-pill" onclick="filterRecords('식사', this)">🍚 식사</button>
+        <button class="filter-pill" onclick="filterRecords('복약 확인', this)">💊 복약 확인</button>
+        <button class="filter-pill" onclick="filterRecords('기분·컨디션', this)">😊 컨디션</button>
+        <button class="filter-pill" onclick="filterRecords('수면', this)">😴 수면</button>
+        <button class="filter-pill" onclick="filterRecords('배변', this)">🚽 배변</button>
+        <button class="filter-pill" onclick="filterRecords('기타', this)">📝 기타</button>
+      </div>
+
+      <div id="allRecordsList">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- VIEW 3: SCHEDULES LIST -->
+    <div id="view-schedules" class="tab-view">
+      <div class="flex-between mb-3">
+        <h2 style="font-size: 20px; font-weight: 800;">📅 돌봄 일정 및 병원 동행</h2>
+        <button class="btn btn-blue btn-sm" onclick="openScheduleModal()">+ 새 일정 등록</button>
+      </div>
+      
+      <p style="font-size: 13px; color: var(--color-pencil-gray); margin-bottom: 14px;">
+        가족들의 방문, 병원 진료, 장보기 등 역할을 나누어 기록하고 완료 여부를 체크해보세요.
+      </p>
+
+      <div id="allSchedulesList">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- VIEW 4: NOTICES LIST -->
+    <div id="view-notices" class="tab-view">
+      <div class="flex-between mb-3">
+        <h2 style="font-size: 20px; font-weight: 800;">📢 가족 공지사항 &amp; 공유 메모</h2>
+        <button class="btn btn-primary btn-sm" onclick="openNoticeModal()">+ 공지 등록</button>
+      </div>
+      
+      <p style="font-size: 13px; color: var(--color-pencil-gray); margin-bottom: 14px;">
+        약 복용법 변경사항, 진료 결과 등 가족 모두가 알아야 할 중요 정보를 남겨주세요.
+      </p>
+
+      <div id="allNoticesList">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- VIEW 5: FAMILY GROUP SETTINGS -->
+    <div id="view-family" class="tab-view">
+      <h2 style="font-size: 20px; font-weight: 800; margin-bottom: 16px;">👥 가족 돌봄 그룹 관리</h2>
+
+      <div class="card mb-3">
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 12px;">🏠 돌봄 기본 정보</h3>
+        <div class="form-group">
+          <label class="form-label">가족 돌봄 그룹 이름</label>
+          <input type="text" id="settingGroupName" class="form-input" value="김씨 가족 돌봄팀">
+        </div>
+        <div class="form-group">
+          <label class="form-label">어르신 표시 이름</label>
+          <input type="text" id="settingElderName" class="form-input" value="김어머니">
+        </div>
+        <button class="btn btn-primary btn-full" onclick="saveGroupSettings()">설정 저장하기</button>
+      </div>
+
+      <div class="card mb-3">
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 8px;">🔗 가족 구성원 초대</h3>
+        <p style="font-size: 13px; color: var(--color-pencil-gray); margin-bottom: 12px;">
+          초대 코드를 전달하여 다른 가족이 그룹에 참여하도록 할 수 있습니다.
+        </p>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="inviteCodeDisplay" class="form-input" value="CARE-7788-FAM" readonly style="background: #f4f6f8; font-weight: 800; text-align: center; letter-spacing: 1px;">
+          <button class="btn btn-outlined" onclick="copyInviteCode()">코드 복사</button>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="flex-between mb-3">
+          <h3 style="font-size: 16px; font-weight: 800;">👨‍👩‍👧‍👦 참여 중인 가족 구성원</h3>
+          <button class="btn btn-outlined btn-sm" onclick="openAddMemberModal()">+ 가족 추가</button>
+        </div>
+        <div id="memberList">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <div class="card" style="border-color: #ffd8d8;">
+        <h3 style="font-size: 15px; font-weight: 800; color: var(--color-danger); margin-bottom: 8px;">⚙️ 데이터 관리</h3>
+        <p style="font-size: 13px; color: var(--color-pencil-gray); margin-bottom: 12px;">
+          샘플 데이터를 초기 상태로 되돌리거나 저장된 모든 데이터를 초기화할 수 있습니다.
+        </p>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-outlined btn-sm" onclick="resetToSampleData()">초기 샘플 데이터 복원</button>
+          <button class="btn btn-outlined btn-sm" onclick="exportDataJson()">데이터 백업(JSON)</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" onclick="switchTab('home')">
+      <span class="nav-icon">🏠</span>
+      <span>홈</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('records')">
+      <span class="nav-icon">📝</span>
+      <span>돌봄 기록</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('schedules')">
+      <span class="nav-icon">📅</span>
+      <span>일정</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('notices')">
+      <span class="nav-icon">📢</span>
+      <span>가족 공지</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('family')">
+      <span class="nav-icon">👥</span>
+      <span>가족 관리</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ============================================== -->
+<!-- MODALS -->
+<!-- ============================================== -->
+
+<!-- 1. Care Record Modal -->
+<div class="modal-overlay" id="recordModal">
+  <div class="modal-sheet">
+    <div class="modal-header">
+      <h3 id="recordModalTitle">새 돌봄 기록 작성</h3>
+      <button class="modal-close" onclick="closeModal('recordModal')">&times;</button>
+    </div>
+    <form id="recordForm" onsubmit="handleRecordSubmit(event)">
+      <input type="hidden" id="recordEditId" value="">
+      
+      <!-- Record Type Selector -->
+      <div class="form-group">
+        <label class="form-label">기록 유형 선택</label>
+        <div class="type-selector-grid">
+          <button type="button" class="type-option-btn selected" data-type="식사" onclick="selectRecordType('식사', this)">
+            <span>🍚</span><span>식사</span>
+          </button>
+          <button type="button" class="type-option-btn" data-type="복약 확인" onclick="selectRecordType('복약 확인', this)">
+            <span>💊</span><span>복약 확인</span>
+          </button>
+          <button type="button" class="type-option-btn" data-type="기분·컨디션" onclick="selectRecordType('기분·컨디션', this)">
+            <span>😊</span><span>컨디션</span>
+          </button>
+          <button type="button" class="type-option-btn" data-type="수면" onclick="selectRecordType('수면', this)">
+            <span>😴</span><span>수면</span>
+          </button>
+          <button type="button" class="type-option-btn" data-type="배변" onclick="selectRecordType('배변', this)">
+            <span>🚽</span><span>배변</span>
+          </button>
+          <button type="button" class="type-option-btn" data-type="기타" onclick="selectRecordType('기타', this)">
+            <span>📝</span><span>기타</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Date & Time -->
+      <div class="form-group">
+        <label class="form-label">기록 일시</label>
+        <input type="datetime-local" id="recordDateTime" class="form-input" required>
+      </div>
+
+      <!-- Quick recommendation chips -->
+      <div class="form-group">
+        <label class="form-label">자주 쓰는 빠른 문구 (클릭 시 입력)</label>
+        <div class="quick-chips" id="recordPresetChips">
+          <span class="chip" onclick="fillRecordContent('아침 식사 반 공기, 따뜻한 물 드심')">아침 식사 완료</span>
+          <span class="chip" onclick="fillRecordContent('점심 식사 맛있게 전부 드심')">점심 완식</span>
+          <span class="chip" onclick="fillRecordContent('처방된 정기 약 복용 확인 완료')">약 복용 확인</span>
+          <span class="chip" onclick="fillRecordContent('오후 낮잠 1시간 편안히 주무심')">낮잠 1시간</span>
+          <span class="chip" onclick="fillRecordContent('거실 및 아파트 화단 가벼운 산책 20분')">가벼운 산책</span>
+        </div>
+      </div>
+
+      <!-- Record Content -->
+      <div class="form-group">
+        <label class="form-label">기록 내용</label>
+        <textarea id="recordContent" class="form-textarea" placeholder="어르신의 식사량, 복약 확인, 행동 등을 입력하세요..." required></textarea>
+      </div>
+
+      <!-- Special Note -->
+      <div class="form-group">
+        <label class="form-label">특이사항 / 주의점 (선택)</label>
+        <input type="text" id="recordNote" class="form-input" placeholder="예: 평소보다 기운이 없어 보이심, 식욕이 좋으심 등">
+      </div>
+
+      <!-- Author -->
+      <div class="form-group">
+        <label class="form-label">기록자</label>
+        <select id="recordAuthor" class="form-select"></select>
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-top: 20px;">
+        <button type="button" class="btn btn-outlined btn-full" onclick="closeModal('recordModal')">취소</button>
+        <button type="submit" class="btn btn-primary btn-full" id="recordSubmitBtn">기록 저장하기</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 2. Schedule Modal -->
+<div class="modal-overlay" id="scheduleModal">
+  <div class="modal-sheet">
+    <div class="modal-header">
+      <h3 id="scheduleModalTitle">새 돌봄 일정 등록</h3>
+      <button class="modal-close" onclick="closeModal('scheduleModal')">&times;</button>
+    </div>
+    <form id="scheduleForm" onsubmit="handleScheduleSubmit(event)">
+      <input type="hidden" id="scheduleEditId" value="">
+
+      <div class="form-group">
+        <label class="form-label">일정 제목</label>
+        <input type="text" id="scheduleTitle" class="form-input" placeholder="예: 신경과 정기 진료 동행, 어르신 방문 등" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">일정 날짜 및 시간</label>
+        <input type="datetime-local" id="scheduleDateTime" class="form-input" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">담당 가족 구성원</label>
+        <select id="scheduleAssignee" class="form-select" required></select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">장소 또는 메모 (선택)</label>
+        <input type="text" id="scheduleNote" class="form-input" placeholder="예: 화성남부병원 2층 신경과, 처방전 챙기기">
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-top: 20px;">
+        <button type="button" class="btn btn-outlined btn-full" onclick="closeModal('scheduleModal')">취소</button>
+        <button type="submit" class="btn btn-blue btn-full" id="scheduleSubmitBtn">일정 저장하기</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 3. Notice Modal -->
+<div class="modal-overlay" id="noticeModal">
+  <div class="modal-sheet">
+    <div class="modal-header">
+      <h3 id="noticeModalTitle">가족 공지 &amp; 공유 메모</h3>
+      <button class="modal-close" onclick="closeModal('noticeModal')">&times;</button>
+    </div>
+    <form id="noticeForm" onsubmit="handleNoticeSubmit(event)">
+      <input type="hidden" id="noticeEditId" value="">
+
+      <div class="form-group">
+        <label class="form-label">공지 제목</label>
+        <input type="text" id="noticeTitle" class="form-input" placeholder="예: 어머니 복약 시간 변경 안내" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">공지 내용</label>
+        <textarea id="noticeContent" class="form-textarea" rows="4" placeholder="가족들과 공유할 상세 내용을 적어주세요..." required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">
+          <input type="checkbox" id="noticePinned" style="margin-right: 6px; transform: scale(1.2);">
+          상단 고정 (중요 공지)
+        </label>
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-top: 20px;">
+        <button type="button" class="btn btn-outlined btn-full" onclick="closeModal('noticeModal')">취소</button>
+        <button type="submit" class="btn btn-primary btn-full">공지 올리기</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 4. User Switch Modal -->
+<div class="modal-overlay" id="userSwitchModal">
+  <div class="modal-sheet">
+    <div class="modal-header">
+      <h3>작성자(가족) 변경</h3>
+      <button class="modal-close" onclick="closeModal('userSwitchModal')">&times;</button>
+    </div>
+    <p style="font-size: 13px; color: var(--color-pencil-gray); margin-bottom: 16px;">
+      현재 기록 또는 일정을 등록하는 가족 구성원을 선택해주세요.
+    </p>
+    <div id="userSwitchList" style="display: flex; flex-direction: column; gap: 8px;">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- 5. Add Family Member Modal -->
+<div class="modal-overlay" id="addMemberModal">
+  <div class="modal-sheet">
+    <div class="modal-header">
+      <h3>새 가족 구성원 등록</h3>
+      <button class="modal-close" onclick="closeModal('addMemberModal')">&times;</button>
+    </div>
+    <form id="addMemberForm" onsubmit="handleAddMemberSubmit(event)">
+      <div class="form-group">
+        <label class="form-label">가족 이름 / 호칭</label>
+        <input type="text" id="newMemberName" class="form-input" placeholder="예: 며느리, 큰딸, 간병도우미 등" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">역할</label>
+        <select id="newMemberRole" class="form-select">
+          <option value="가족 구성원">가족 구성원 (기록 및 확인)</option>
+          <option value="가족 관리자">가족 관리자 (전체 관리)</option>
+        </select>
+      </div>
+      <div style="display: flex; gap: 8px; margin-top: 20px;">
+        <button type="button" class="btn btn-outlined btn-full" onclick="closeModal('addMemberModal')">취소</button>
+        <button type="submit" class="btn btn-primary btn-full">가족 추가하기</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Toast notification container -->
+<div id="toastNotification" class="toast">
+  <span id="toastIcon">✅</span>
+  <span id="toastMessage">완료되었습니다.</span>
+</div>
+
+<!-- ============================================== -->
+<!-- JAVASCRIPT LOGIC -->
+<!-- ============================================== -->
+<script>
+  // STORAGE KEYS
+  const STORAGE_KEY = 'DEMENTIA_CARE_NOTE_DATA_V1';
+
+  // INITIAL SAMPLE DATA (PRD 기준)
+  const defaultData = {
+    group: {
+      groupName: '김씨 가족 돌봄팀',
+      elderDisplayName: '김어머니',
+      inviteCode: 'CARE-7788-FAM'
+    },
+    currentUser: '민지',
+    members: [
+      { id: 'm1', name: '민지', role: '가족 관리자', avatar: '👩' },
+      { id: 'm2', name: '남동생', role: '가족 구성원', avatar: '👨' },
+      { id: 'm3', name: '아버지', role: '가족 구성원', avatar: '👴' }
+    ],
+    records: [
+      {
+        id: 'rec-1',
+        type: '식사',
+        dateTime: '2026-09-28T08:30',
+        content: '아침 식사와 물 한 컵 드심',
+        note: '평소보다 밥을 잘 드셔서 기분 좋으심',
+        author: '민지',
+        createdAt: '2026-09-28T08:32:00'
+      },
+      {
+        id: 'rec-2',
+        type: '복약 확인',
+        dateTime: '2026-09-28T09:00',
+        content: '가족이 아침 약 복용 여부 확인',
+        note: '혈압약과 치매 처방약 모두 복용 완료',
+        author: '민지',
+        createdAt: '2026-09-28T09:05:00'
+      },
+      {
+        id: 'rec-3',
+        type: '기분·컨디션',
+        dateTime: '2026-09-28T14:00',
+        content: '평소보다 피곤해 보여 휴식함',
+        note: '거실 소파에서 1시간 정도 편안히 주무심',
+        author: '아버지',
+        createdAt: '2026-09-28T14:05:00'
+      }
+    ],
+    schedules: [
+      {
+        id: 'sch-1',
+        title: '신경과 정기 진료 동행',
+        dateTime: '2026-09-30T10:00',
+        assignee: '남동생',
+        note: '화성남부병원 2층 신경과 / 진료 후 다음달 처방전 챙기기',
+        isCompleted: false
+      },
+      {
+        id: 'sch-2',
+        title: '어머니 방문 및 장보기',
+        dateTime: '2026-10-01T16:00',
+        assignee: '민지',
+        note: '신선한 과일(바나나, 사과)과 반찬 챙겨가기',
+        isCompleted: false
+      }
+    ],
+    notices: [
+      {
+        id: 'not-1',
+        title: '아침 복약 시간 안내 (9시)',
+        content: '아침 식사 후 30분 뒤(약 9시경) 혈압약과 처방약을 꼭 챙겨주세요. 복용 후 앱에 기록 남겨주시면 서로 확인하기 편합니다.',
+        author: '민지',
+        isPinned: true,
+        createdAt: '2026-09-27T10:00:00'
+      },
+      {
+        id: 'not-2',
+        title: '이번 주말 가족 방문 일정 조율',
+        content: '토요일 오후에는 남동생이 어머니 뵙고 산책 도와드리기로 했습니다. 일요일 진료 일정 확인 부탁드립니다.',
+        author: '아버지',
+        isPinned: false,
+        createdAt: '2026-09-28T11:30:00'
+      }
+    ]
+  };
+
+  // APP STATE
+  let appData = null;
+  let activeRecordFilter = 'ALL';
+  let selectedTypeInModal = '식사';
+
+  // Load from local storage or set default
+  function loadData() {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        appData = JSON.parse(stored);
+      } else {
+        appData = JSON.parse(JSON.stringify(defaultData));
+        saveData();
+      }
+    } catch (e) {
+      console.error(e);
+      appData = JSON.parse(JSON.stringify(defaultData));
+    }
+  }
+
+  function saveData() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  // Toast Helper
+  function showToast(msg, icon = '✅') {
+    const toast = document.getElementById('toastNotification');
+    document.getElementById('toastIcon').textContent = icon;
+    document.getElementById('toastMessage').textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2400);
+  }
+
+  // Switch Navigation Tabs
+  function switchTab(tabName) {
+    document.querySelectorAll('.tab-view').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+
+    const targetView = document.getElementById(`view-${tabName}`);
+    if (targetView) targetView.classList.add('active');
+
+    // highlight nav button
+    const tabs = ['home', 'records', 'schedules', 'notices', 'family'];
+    const idx = tabs.indexOf(tabName);
+    if (idx !== -1) {
+      const navButtons = document.querySelectorAll('.bottom-nav .nav-btn');
+      if (navButtons[idx]) navButtons[idx].classList.add('active');
+    }
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Refresh contents
+    renderApp();
+  }
+
+  // Date Formatting Helpers
+  function formatKoreanDateTime(dateStr) {
+    if (!dateStr) return '';
+    try {
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return dateStr;
+      const month = d.getMonth() + 1;
+      const date = d.getDate();
+      const hours = String(d.getHours()).padStart(2, '0');
+      const minutes = String(d.getMinutes()).padStart(2, '0');
+      return `${month}월 ${date}일 ${hours}:${minutes}`;
+    } catch (e) {
+      return dateStr;
+    }
+  }
+
+  function getTodayString() {
+    const d = new Date();
+    const days = ['일', '월', '화', '수', '목', '금', '토'];
+    return `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일 (${days[d.getDay()]})`;
+  }
+
+  function getLocalDatetimeNow() {
+    const now = new Date();
+    const offset = now.getTimezoneOffset() * 60000;
+    return new Date(now.getTime() - offset).toISOString().slice(0, 16);
+  }
+
+  // Render Everything
+  function renderApp() {
+    // Header & Info
+    document.getElementById('headerGroupName').textContent = appData.group.groupName;
+    document.getElementById('headerElderName').textContent = appData.group.elderDisplayName;
+    document.getElementById('currentUserName').textContent = appData.currentUser;
+    document.getElementById('dashElderName').textContent = `${appData.group.elderDisplayName} 돌봄 현황`;
+    document.getElementById('todayDateStr').textContent = getTodayString();
+
+    // Stats
+    document.getElementById('statTodayRecords').textContent = appData.records.length;
+    const pendingSchedules = appData.schedules.filter(s => !s.isCompleted).length;
+    document.getElementById('statUpcomingSchedules').textContent = pendingSchedules;
+
+    // Home view widgets
+    renderHomeRecords();
+    renderHomeSchedules();
+    renderHomeNotices();
+
+    // Tab lists
+    renderAllRecords();
+    renderAllSchedules();
+    renderAllNotices();
+    renderFamilySettings();
+  }
+
+  // Type badge helper
+  function getTypeBadgeHtml(type) {
+    let typeClass = 'type-etc';
+    let icon = '📝';
+    if (type === '식사') { typeClass = 'type-meal'; icon = '🍚'; }
+    else if (type === '복약 확인') { typeClass = 'type-medicine'; icon = '💊'; }
+    else if (type === '기분·컨디션') { typeClass = 'type-condition'; icon = '😊'; }
+    else if (type === '수면') { typeClass = 'type-sleep'; icon = '😴'; }
+    else if (type === '배변') { typeClass = 'type-toilet'; icon = '🚽'; }
+
+    return `<span class="type-badge ${typeClass}">${icon} ${type}</span>`;
+  }
+
+  // 1. Render Home Recent Records
+  function renderHomeRecords() {
+    const container = document.getElementById('homeRecentRecordsList');
+    if (!container) return;
+
+    const recent = [...appData.records].sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime)).slice(0, 3);
+    if (recent.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">📝</div>
+          <div class="empty-state-text">아직 등록된 돌봄 기록이 없습니다.</div>
+          <button class="btn btn-primary btn-sm" onclick="openRecordModal()">첫 기록 남기기</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = recent.map(r => `
+      <div class="card">
+        <div class="record-header">
+          ${getTypeBadgeHtml(r.type)}
+          <span class="record-time">${formatKoreanDateTime(r.dateTime)}</span>
+        </div>
+        <div class="record-content">${r.content}</div>
+        ${r.note ? `<div class="record-note">💡 ${r.note}</div>` : ''}
+        <div class="record-footer">
+          <span class="author-tag">👤 작성: ${r.author}</span>
+          <div class="item-actions">
+            <button class="btn-action-text" onclick="editRecord('${r.id}')">수정</button>
+            <button class="btn-action-text" onclick="deleteRecord('${r.id}')">삭제</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // 2. Render Home Schedules
+  function renderHomeSchedules() {
+    const container = document.getElementById('homeRecentSchedulesList');
+    if (!container) return;
+
+    const pending = [...appData.schedules].sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime)).slice(0, 3);
+    if (pending.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">📅</div>
+          <div class="empty-state-text">예정된 일정이 없습니다.</div>
+          <button class="btn btn-blue btn-sm" onclick="openScheduleModal()">새 일정 추가</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = pending.map(s => `
+      <div class="card">
+        <div class="schedule-item">
+          <div class="schedule-check ${s.isCompleted ? 'completed' : ''}" onclick="toggleScheduleStatus('${s.id}')">
+            ${s.isCompleted ? '✓' : ''}
+          </div>
+          <div class="schedule-content">
+            <div class="schedule-title ${s.isCompleted ? 'completed' : ''}">${s.title}</div>
+            <div class="schedule-meta">
+              <span>🕒 ${formatKoreanDateTime(s.dateTime)}</span>
+              <span class="assignee-badge">담당: ${s.assignee}</span>
+            </div>
+            ${s.note ? `<div style="font-size:12px; color:#666; margin-top:4px;">📍 ${s.note}</div>` : ''}
+          </div>
+          <div class="item-actions">
+            <button class="btn-action-text" onclick="editSchedule('${s.id}')">수정</button>
+            <button class="btn-action-text" onclick="deleteSchedule('${s.id}')">삭제</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // 3. Render Home Notices
+  function renderHomeNotices() {
+    const container = document.getElementById('homeRecentNoticesList');
+    if (!container) return;
+
+    const recent = [...appData.notices].sort((a, b) => (b.isPinned ? 1 : 0) - (a.isPinned ? 1 : 0)).slice(0, 2);
+    if (recent.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">📢</div>
+          <div class="empty-state-text">등록된 공지가 없습니다.</div>
+          <button class="btn btn-primary btn-sm" onclick="openNoticeModal()">공지 작성하기</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = recent.map(n => `
+      <div class="card notice-card ${n.isPinned ? 'pinned' : ''}">
+        <div class="notice-title">
+          ${n.isPinned ? '📌' : '📢'} ${n.title}
+        </div>
+        <p style="font-size: 14px; margin-top: 6px; color: var(--color-charcoal); line-height: 1.4;">${n.content}</p>
+        <div class="record-footer" style="margin-top: 8px;">
+          <span class="author-tag">👤 작성: ${n.author}</span>
+          <div class="item-actions">
+            <button class="btn-action-text" onclick="deleteNotice('${n.id}')">삭제</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // 4. Render All Records with Filter
+  function filterRecords(type, btnElement) {
+    activeRecordFilter = type;
+    document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+    if (btnElement) btnElement.classList.add('active');
+    renderAllRecords();
+  }
+
+  function renderAllRecords() {
+    const container = document.getElementById('allRecordsList');
+    if (!container) return;
+
+    let list = [...appData.records].sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+    if (activeRecordFilter !== 'ALL') {
+      list = list.filter(r => r.type === activeRecordFilter);
+    }
+
+    if (list.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">🔍</div>
+          <div class="empty-state-text">${activeRecordFilter === 'ALL' ? '등록된 기록이 없습니다.' : activeRecordFilter + ' 기록이 없습니다.'}</div>
+          <button class="btn btn-primary btn-sm" onclick="openRecordModalWithPreset('${activeRecordFilter === 'ALL' ? '식사' : activeRecordFilter}')">기록 추가</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = list.map(r => `
+      <div class="card">
+        <div class="record-header">
+          ${getTypeBadgeHtml(r.type)}
+          <span class="record-time">${formatKoreanDateTime(r.dateTime)}</span>
+        </div>
+        <div class="record-content">${r.content}</div>
+        ${r.note ? `<div class="record-note">💡 ${r.note}</div>` : ''}
+        <div class="record-footer">
+          <span class="author-tag">👤 ${r.author}</span>
+          <div class="item-actions">
+            <button class="btn-action-text" onclick="editRecord('${r.id}')">수정</button>
+            <button class="btn-action-text" onclick="deleteRecord('${r.id}')">삭제</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // 5. Render All Schedules
+  function renderAllSchedules() {
+    const container = document.getElementById('allSchedulesList');
+    if (!container) return;
+
+    const list = [...appData.schedules].sort((a, b) => {
+      if (a.isCompleted !== b.isCompleted) return a.isCompleted ? 1 : -1;
+      return new Date(a.dateTime) - new Date(b.dateTime);
+    });
+
+    if (list.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">📅</div>
+          <div class="empty-state-text">등록된 일정이 없습니다.</div>
+          <button class="btn btn-blue btn-sm" onclick="openScheduleModal()">+ 새 일정 등록하기</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = list.map(s => `
+      <div class="card">
+        <div class="schedule-item">
+          <div class="schedule-check ${s.isCompleted ? 'completed' : ''}" onclick="toggleScheduleStatus('${s.id}')">
+            ${s.isCompleted ? '✓' : ''}
+          </div>
+          <div class="schedule-content">
+            <div class="schedule-title ${s.isCompleted ? 'completed' : ''}">${s.title}</div>
+            <div class="schedule-meta">
+              <span>🕒 ${formatKoreanDateTime(s.dateTime)}</span>
+              <span class="assignee-badge">담당: ${s.assignee}</span>
+            </div>
+            ${s.note ? `<div style="font-size:12px; color:#666; margin-top:4px;">📍 ${s.note}</div>` : ''}
+          </div>
+          <div class="item-actions">
+            <button class="btn-action-text" onclick="editSchedule('${s.id}')">수정</button>
+            <button class="btn-action-text" onclick="deleteSchedule('${s.id}')">삭제</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // 6. Render All Notices
+  function renderAllNotices() {
+    const container = document.getElementById('allNoticesList');
+    if (!container) return;
+
+    const list = [...appData.notices].sort((a, b) => (b.isPinned ? 1 : 0) - (a.isPinned ? 1 : 0));
+    if (list.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">📢</div>
+          <div class="empty-state-text">공지사항이 없습니다.</div>
+          <button class="btn btn-primary btn-sm" onclick="openNoticeModal()">+ 새 공지 등록하기</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = list.map(n => `
+      <div class="card notice-card ${n.isPinned ? 'pinned' : ''}">
+        <div class="notice-title">
+          ${n.isPinned ? '📌' : '📢'} ${n.title}
+        </div>
+        <p style="font-size: 14px; margin-top: 8px; color: var(--color-charcoal); line-height: 1.5; white-space: pre-wrap;">${n.content}</p>
+        <div class="record-footer" style="margin-top: 10px;">
+          <span class="author-tag">👤 작성: ${n.author}</span>
+          <div class="item-actions">
+            <button class="btn-action-text" onclick="deleteNotice('${n.id}')">삭제</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // 7. Render Family Settings
+  function renderFamilySettings() {
+    const memberContainer = document.getElementById('memberList');
+    if (memberContainer) {
+      memberContainer.innerHTML = appData.members.map(m => `
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--color-faded-gray);">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 20px;">${m.avatar || '👤'}</span>
+            <div>
+              <div style="font-weight: 700; font-size: 14px;">${m.name} ${m.name === appData.currentUser ? '<span style="color:var(--color-eager-green); font-size:12px;">(현재 나)</span>' : ''}</div>
+              <div style="font-size: 12px; color: var(--color-pencil-gray);">${m.role}</div>
+            </div>
+          </div>
+          ${m.name !== appData.currentUser ? `<button class="btn-action-text" onclick="removeMember('${m.id}')">제외</button>` : ''}
+        </div>
+      `).join('');
+    }
+
+    const inputGroup = document.getElementById('settingGroupName');
+    const inputElder = document.getElementById('settingElderName');
+    const inviteCode = document.getElementById('inviteCodeDisplay');
+    if (inputGroup) inputGroup.value = appData.group.groupName;
+    if (inputElder) inputElder.value = appData.group.elderDisplayName;
+    if (inviteCode) inviteCode.value = appData.group.inviteCode;
+  }
+
+  // MODAL CONTROLS
+  function openModal(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('active');
+  }
+
+  function closeModal(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('active');
+  }
+
+  // RECORD MODAL LOGIC
+  function openRecordModal() {
+    document.getElementById('recordEditId').value = '';
+    document.getElementById('recordModalTitle').textContent = '새 돌봄 기록 작성';
+    document.getElementById('recordSubmitBtn').textContent = '기록 저장하기';
+    document.getElementById('recordDateTime').value = getLocalDatetimeNow();
+    document.getElementById('recordContent').value = '';
+    document.getElementById('recordNote').value = '';
+
+    // Populate Author Select
+    populateMemberSelect('recordAuthor', appData.currentUser);
+    selectRecordType('식사');
+
+    openModal('recordModal');
+  }
+
+  function openRecordModalWithPreset(type, content = '') {
+    openRecordModal();
+    selectRecordType(type);
+    if (content) {
+      document.getElementById('recordContent').value = content;
+    }
+  }
+
+  function selectRecordType(type, btnEl) {
+    selectedTypeInModal = type;
+    document.querySelectorAll('.type-option-btn').forEach(btn => {
+      if (btn.getAttribute('data-type') === type) {
+        btn.classList.add('selected');
+      } else {
+        btn.classList.remove('selected');
+      }
+    });
+
+    // Preset chips update based on type
+    const chipContainer = document.getElementById('recordPresetChips');
+    if (type === '식사') {
+      chipContainer.innerHTML = `
+        <span class="chip" onclick="fillRecordContent('아침 식사 반 공기, 따뜻한 물 드심')">아침 식사</span>
+        <span class="chip" onclick="fillRecordContent('점심 식사 맛있게 전부 드심')">점심 완식</span>
+        <span class="chip" onclick="fillRecordContent('저녁 부드러운 죽 한 그릇 드심')">저녁 죽</span>
+        <span class="chip" onclick="fillRecordContent('과일 간식과 두유 드심')">간식 섭취</span>
+      `;
+    } else if (type === '복약 확인') {
+      chipContainer.innerHTML = `
+        <span class="chip" onclick="fillRecordContent('아침 정기 약 복용 확인 완료')">아침약 확인</span>
+        <span class="chip" onclick="fillRecordContent('점심 처방약 복용 확인')">점심약 확인</span>
+        <span class="chip" onclick="fillRecordContent('저녁 혈압약 및 수면 보조약 확인')">저녁약 확인</span>
+      `;
+    } else if (type === '기분·컨디션') {
+      chipContainer.innerHTML = `
+        <span class="chip" onclick="fillRecordContent('기분 매우 밝으시고 대화 잘 나누심')">기분 좋으심</span>
+        <span class="chip" onclick="fillRecordContent('평소보다 조금 피곤해 보이고 말씀이 적으심')">피곤해 보임</span>
+        <span class="chip" onclick="fillRecordContent('산책 다녀온 후 편안해 하심')">산책 후 편안</span>
+      `;
+    } else if (type === '수면') {
+      chipContainer.innerHTML = `
+        <span class="chip" onclick="fillRecordContent('밤새 깨지 않고 8시간 숙면 취하심')">숙면 완료</span>
+        <span class="chip" onclick="fillRecordContent('새벽에 한 번 깨셨으나 다시 잠드심')">새벽 한 번 깸</span>
+        <span class="chip" onclick="fillRecordContent('오후 낮잠 40분 주무심')">낮잠 40분</span>
+      `;
+    } else if (type === '배변') {
+      chipContainer.innerHTML = `
+        <span class="chip" onclick="fillRecordContent('아침 정상 배변 확인 (상태 양호)')">정상 배변</span>
+        <span class="chip" onclick="fillRecordContent('소변 정상, 수분 섭취 권장함')">소변 정상</span>
+      `;
+    } else {
+      chipContainer.innerHTML = `
+        <span class="chip" onclick="fillRecordContent('어르신과 가족 통화 나누심')">가족 통화</span>
+        <span class="chip" onclick="fillRecordContent('복지관 방문 프로그램 참여하심')">복지관 방문</span>
+      `;
+    }
+  }
+
+  function fillRecordContent(text) {
+    document.getElementById('recordContent').value = text;
+  }
+
+  function handleRecordSubmit(e) {
+    e.preventDefault();
+    const editId = document.getElementById('recordEditId').value;
+    const dateTime = document.getElementById('recordDateTime').value;
+    const content = document.getElementById('recordContent').value.trim();
+    const note = document.getElementById('recordNote').value.trim();
+    const author = document.getElementById('recordAuthor').value;
+
+    if (!content) {
+      alert('기록 내용을 입력해주세요.');
+      return;
+    }
+
+    if (editId) {
+      const idx = appData.records.findIndex(r => r.id === editId);
+      if (idx !== -1) {
+        appData.records[idx] = {
+          ...appData.records[idx],
+          type: selectedTypeInModal,
+          dateTime,
+          content,
+          note,
+          author,
+          updatedAt: new Date().toISOString()
+        };
+        showToast('기록이 수정되었습니다!');
+      }
+    } else {
+      const newRecord = {
+        id: 'rec-' + Date.now(),
+        type: selectedTypeInModal,
+        dateTime,
+        content,
+        note,
+        author,
+        createdAt: new Date().toISOString()
+      };
+      appData.records.unshift(newRecord);
+      showToast('새 돌봄 기록이 등록되었습니다!');
+    }
+
+    saveData();
+    renderApp();
+    closeModal('recordModal');
+  }
+
+  function editRecord(id) {
+    const record = appData.records.find(r => r.id === id);
+    if (!record) return;
+
+    document.getElementById('recordEditId').value = record.id;
+    document.getElementById('recordModalTitle').textContent = '돌봄 기록 수정';
+    document.getElementById('recordSubmitBtn').textContent = '수정 완료';
+    document.getElementById('recordDateTime').value = record.dateTime;
+    document.getElementById('recordContent').value = record.content;
+    document.getElementById('recordNote').value = record.note || '';
+
+    populateMemberSelect('recordAuthor', record.author);
+    selectRecordType(record.type);
+
+    openModal('recordModal');
+  }
+
+  function deleteRecord(id) {
+    if (confirm('이 돌봄 기록을 삭제하시겠습니까?')) {
+      appData.records = appData.records.filter(r => r.id !== id);
+      saveData();
+      renderApp();
+      showToast('기록이 삭제되었습니다.');
+    }
+  }
+
+  // SCHEDULE MODAL LOGIC
+  function openScheduleModal() {
+    document.getElementById('scheduleEditId').value = '';
+    document.getElementById('scheduleModalTitle').textContent = '새 돌봄 일정 등록';
+    document.getElementById('scheduleSubmitBtn').textContent = '일정 저장하기';
+    document.getElementById('scheduleTitle').value = '';
+    document.getElementById('scheduleDateTime').value = getLocalDatetimeNow();
+    document.getElementById('scheduleNote').value = '';
+
+    populateMemberSelect('scheduleAssignee', appData.currentUser);
+    openModal('scheduleModal');
+  }
+
+  function handleScheduleSubmit(e) {
+    e.preventDefault();
+    const editId = document.getElementById('scheduleEditId').value;
+    const title = document.getElementById('scheduleTitle').value.trim();
+    const dateTime = document.getElementById('scheduleDateTime').value;
+    const assignee = document.getElementById('scheduleAssignee').value;
+    const note = document.getElementById('scheduleNote').value.trim();
+
+    if (!title) return;
+
+    if (editId) {
+      const idx = appData.schedules.findIndex(s => s.id === editId);
+      if (idx !== -1) {
+        appData.schedules[idx] = {
+          ...appData.schedules[idx],
+          title,
+          dateTime,
+          assignee,
+          note
+        };
+        showToast('일정이 수정되었습니다!');
+      }
+    } else {
+      const newSchedule = {
+        id: 'sch-' + Date.now(),
+        title,
+        dateTime,
+        assignee,
+        note,
+        isCompleted: false
+      };
+      appData.schedules.push(newSchedule);
+      showToast('새 일정이 등록되었습니다!');
+    }
+
+    saveData();
+    renderApp();
+    closeModal('scheduleModal');
+  }
+
+  function editSchedule(id) {
+    const s = appData.schedules.find(item => item.id === id);
+    if (!s) return;
+
+    document.getElementById('scheduleEditId').value = s.id;
+    document.getElementById('scheduleModalTitle').textContent = '일정 수정';
+    document.getElementById('scheduleSubmitBtn').textContent = '수정 완료';
+    document.getElementById('scheduleTitle').value = s.title;
+    document.getElementById('scheduleDateTime').value = s.dateTime;
+    document.getElementById('scheduleNote').value = s.note || '';
+
+    populateMemberSelect('scheduleAssignee', s.assignee);
+    openModal('scheduleModal');
+  }
+
+  function toggleScheduleStatus(id) {
+    const s = appData.schedules.find(item => item.id === id);
+    if (s) {
+      s.isCompleted = !s.isCompleted;
+      saveData();
+      renderApp();
+      showToast(s.isCompleted ? '일정을 완료 처리했습니다! 🎉' : '일정을 미완료로 변경했습니다.');
+    }
+  }
+
+  function deleteSchedule(id) {
+    if (confirm('이 일정을 삭제하시겠습니까?')) {
+      appData.schedules = appData.schedules.filter(s => s.id !== id);
+      saveData();
+      renderApp();
+      showToast('일정이 삭제되었습니다.');
+    }
+  }
+
+  // NOTICE MODAL LOGIC
+  function openNoticeModal() {
+    document.getElementById('noticeEditId').value = '';
+    document.getElementById('noticeTitle').value = '';
+    document.getElementById('noticeContent').value = '';
+    document.getElementById('noticePinned').checked = false;
+    openModal('noticeModal');
+  }
+
+  function handleNoticeSubmit(e) {
+    e.preventDefault();
+    const title = document.getElementById('noticeTitle').value.trim();
+    const content = document.getElementById('noticeContent').value.trim();
+    const isPinned = document.getElementById('noticePinned').checked;
+
+    if (!title || !content) return;
+
+    const newNotice = {
+      id: 'not-' + Date.now(),
+      title,
+      content,
+      isPinned,
+      author: appData.currentUser,
+      createdAt: new Date().toISOString()
+    };
+
+    appData.notices.unshift(newNotice);
+    saveData();
+    renderApp();
+    closeModal('noticeModal');
+    showToast('공지가 등록되었습니다! 📢');
+  }
+
+  function deleteNotice(id) {
+    if (confirm('이 공지사항을 삭제하시겠습니까?')) {
+      appData.notices = appData.notices.filter(n => n.id !== id);
+      saveData();
+      renderApp();
+      showToast('공지가 삭제되었습니다.');
+    }
+  }
+
+  // USER SWITCHER
+  document.getElementById('userSwitcherBtn').addEventListener('click', () => {
+    const container = document.getElementById('userSwitchList');
+    container.innerHTML = appData.members.map(m => `
+      <div class="card" style="margin-bottom:0; cursor:pointer; display:flex; align-items:center; justify-content:space-between; ${m.name === appData.currentUser ? 'border-color:var(--color-eager-green); background:#f4fdf0;' : ''}" onclick="selectCurrentUser('${m.name}')">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:24px;">${m.avatar || '👤'}</span>
+          <div>
+            <div style="font-weight:800; font-size:15px;">${m.name}</div>
+            <div style="font-size:12px; color:var(--color-pencil-gray);">${m.role}</div>
+          </div>
+        </div>
+        ${m.name === appData.currentUser ? '<strong style="color:var(--color-eager-green);">선택됨 ✓</strong>' : '<span style="font-size:13px; color:#999;">전환하기</span>'}
+      </div>
+    `).join('');
+    openModal('userSwitchModal');
+  });
+
+  function selectCurrentUser(name) {
+    appData.currentUser = name;
+    saveData();
+    renderApp();
+    closeModal('userSwitchModal');
+    showToast(`작성자가 '${name}'님으로 변경되었습니다! 👤`);
+  }
+
+  // MEMBER MANAGEMENT
+  function openAddMemberModal() {
+    document.getElementById('newMemberName').value = '';
+    openModal('addMemberModal');
+  }
+
+  function handleAddMemberSubmit(e) {
+    e.preventDefault();
+    const name = document.getElementById('newMemberName').value.trim();
+    const role = document.getElementById('newMemberRole').value;
+
+    if (!name) return;
+    if (appData.members.some(m => m.name === name)) {
+      alert('이미 동일한 이름의 가족 구성원이 있습니다.');
+      return;
+    }
+
+    appData.members.push({
+      id: 'm-' + Date.now(),
+      name,
+      role,
+      avatar: '👤'
+    });
+
+    saveData();
+    renderApp();
+    closeModal('addMemberModal');
+    showToast(`새 가족 '${name}'님이 추가되었습니다!`);
+  }
+
+  function removeMember(id) {
+    if (confirm('이 가족 구성원을 그룹에서 제외하시겠습니까?')) {
+      appData.members = appData.members.filter(m => m.id !== id);
+      saveData();
+      renderApp();
+      showToast('가족 구성원이 제외되었습니다.');
+    }
+  }
+
+  function saveGroupSettings() {
+    const groupName = document.getElementById('settingGroupName').value.trim();
+    const elderName = document.getElementById('settingElderName').value.trim();
+
+    if (!groupName || !elderName) {
+      alert('그룹 이름과 어르신 이름을 모두 입력해주세요.');
+      return;
+    }
+
+    appData.group.groupName = groupName;
+    appData.group.elderDisplayName = elderName;
+    saveData();
+    renderApp();
+    showToast('그룹 설정이 저장되었습니다! 🏠');
+  }
+
+  function copyInviteCode() {
+    const code = document.getElementById('inviteCodeDisplay').value;
+    navigator.clipboard.writeText(code).then(() => {
+      showToast('초대 코드가 복사되었습니다! (클립보드) 📋');
+    }).catch(() => {
+      prompt('아래 코드를 복사하여 가족에게 전달하세요:', code);
+    });
+  }
+
+  function resetToSampleData() {
+    if (confirm('기본 샘플 데이터로 복원하시겠습니까? (새로 추가한 내용이 초기화됩니다)')) {
+      appData = JSON.parse(JSON.stringify(defaultData));
+      saveData();
+      renderApp();
+      showToast('샘플 데이터가 복원되었습니다.');
+    }
+  }
+
+  function exportDataJson() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
+    const dlAnchorElem = document.createElement('a');
+    dlAnchorElem.setAttribute("href", dataStr);
+    dlAnchorElem.setAttribute("download", `치매돌봄기록장_백업_${new Date().toISOString().slice(0,10)}.json`);
+    dlAnchorElem.click();
+    showToast('데이터 백업 파일이 다운로드되었습니다.');
+  }
+
+  function populateMemberSelect(selectId, selectedVal) {
+    const sel = document.getElementById(selectId);
+    if (!sel) return;
+    sel.innerHTML = appData.members.map(m => `
+      <option value="${m.name}" ${m.name === selectedVal ? 'selected' : ''}>${m.name} (${m.role})</option>
+    `).join('');
+  }
+
+  // INITIALIZE APP
+  window.addEventListener('DOMContentLoaded', () => {
+    loadData();
+    renderApp();
+  });
+</script>
+</body>
+</html>
